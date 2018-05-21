@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            Chat
+          <chat></chat>
         </div>
 
         <div class="col-md-4">
-          users
+          <chat-users></chat-users>
         </div>
     </div>
 </div>
