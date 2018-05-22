@@ -10,7 +10,7 @@ class ChatMessageController extends Controller
 {
     public function index()
     {
-      $messages = Message::get();
+      $messages = Message::with(['user'])->latest()->limit(100)->get();
 
       return response()->json($messages, 200);
     }
