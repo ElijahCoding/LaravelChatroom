@@ -43710,7 +43710,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "chat__message" }, [_c("chat-message")], 1)
+  return _c(
+    "div",
+    { staticClass: "chat__message" },
+    _vm._l(_vm.messages, function(message) {
+      return _c("chat-message", {
+        key: message.id,
+        attrs: { message: message }
+      })
+    })
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -43733,7 +43742,7 @@ function injectStyle (ssrContext) {
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(71)
 /* template */
 var __vue_template__ = __webpack_require__(50)
 /* template functional */
@@ -43781,22 +43790,28 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass: "chat__message",
+      class: { "chat__message--own": _vm.message.selfOwned }
+    },
+    [
+      _c("strong", { staticClass: "chat__message-user" }, [
+        _vm._v("\n        " + _vm._s(_vm.message.user.name) + "\n    ")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "chat__message-timestamp" }, [
+        _vm._v(_vm._s(_vm.message.created_at))
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "chat__message-body" }, [
+        _vm._v(_vm._s(_vm.message.body))
+      ])
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "chat__message" }, [
-      _c("strong", { staticClass: "chat__message-user" }),
-      _vm._v(" "),
-      _c("span", { staticClass: "chat__message-timestamp" }),
-      _vm._v(" "),
-      _c("p", { staticClass: "chat__message-body" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -44056,7 +44071,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      messages: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/chat/messages').then(function (response) {
+      _this.messages = response.data;
+    });
+  }
+});
+
+/***/ }),
+/* 71 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['message']
+});
 
 /***/ })
 /******/ ]);
