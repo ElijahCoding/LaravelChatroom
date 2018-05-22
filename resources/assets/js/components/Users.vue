@@ -2,7 +2,7 @@
     <div class="users">
         <div class="users__header"> online</div>
         <div class="users__user">
-            <a href="#"></a>
+            <a href="#">Elijah</a>
         </div>
     </div>
 </template>
