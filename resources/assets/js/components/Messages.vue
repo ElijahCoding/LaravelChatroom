@@ -1,5 +1,5 @@
 <template>
-  <div class="chat__message">
+  <div class="chat__messages" ref="messages">
     <chat-message v-for="message in messages" :key="message.id" :message="message"></chat-message>
   </div>
 </template>
@@ -19,8 +19,12 @@
         this.messages = response.data
       })
 
-      Bus.$on('message.added', (data) => {
-        console.log(data)
+      Bus.$on('message.added', (message) => {
+        this.messages.unshift(message)
+
+        if (message.selfOwned) {
+          this.$refs.messages.scrollTop = 0
+        }
       })
     }
   }

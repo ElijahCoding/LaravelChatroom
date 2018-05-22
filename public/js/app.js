@@ -43770,7 +43770,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "chat__message" },
+    { ref: "messages", staticClass: "chat__messages" },
     _vm._l(_vm.messages, function(message) {
       return _c("chat-message", {
         key: message.id,
@@ -44145,8 +44145,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       _this.messages = response.data;
     });
 
-    __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$on('message.added', function (data) {
-      console.log(data);
+    __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$on('message.added', function (message) {
+      _this.messages.unshift(message);
+
+      if (message.selfOwned) {
+        _this.$refs.messages.scrollTop = 0;
+      }
     });
   }
 });
