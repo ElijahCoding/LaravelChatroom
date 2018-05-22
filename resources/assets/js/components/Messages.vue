@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import Bus from '../bus'
+
   export default {
     data () {
       return {
@@ -15,6 +17,10 @@
     mounted () {
       axios.get('/chat/messages').then((response) => {
         this.messages = response.data
+      })
+
+      Bus.$on('message.added', (data) => {
+        console.log(data)
       })
     }
   }

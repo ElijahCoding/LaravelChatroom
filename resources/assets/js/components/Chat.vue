@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  import Bus from '../bus'
+
   export default {
     data () {
       return {
@@ -55,7 +57,7 @@
 
         let tempMessage = this.buildTemMessage()
 
-        console.log(tempMessage)
+        Bus.$emit('message.added', tempMessage)
       }
     }
   }

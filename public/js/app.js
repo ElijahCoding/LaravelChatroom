@@ -43588,6 +43588,7 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bus__ = __webpack_require__(72);
 //
 //
 //
@@ -43607,6 +43608,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -43643,7 +43646,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var tempMessage = this.buildTemMessage();
 
-      console.log(tempMessage);
+      __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$emit('message.added', tempMessage);
     }
   }
 });
@@ -44119,12 +44122,15 @@ exports.push([module.i, "\n.users {\n  background-color: #fff;\n  border: 1px so
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bus__ = __webpack_require__(72);
 //
 //
 //
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -44137,6 +44143,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     axios.get('/chat/messages').then(function (response) {
       _this.messages = response.data;
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$on('message.added', function (data) {
+      console.log(data);
     });
   }
 });
@@ -44161,6 +44171,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['message']
 });
+
+/***/ }),
+/* 72 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_vue___default.a());
 
 /***/ })
 /******/ ]);
