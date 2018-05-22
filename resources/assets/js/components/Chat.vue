@@ -33,8 +33,29 @@
         }
       },
 
+      buildTemMessage () {
+        let tempId = Date.now()
+
+        return {
+          id: tempId,
+          body: this.body,
+          created_at: 'Date',
+          selfOwned: true,
+          user: {
+            name: 'Elijah'
+          }
+        }
+
+      },
+
       send () {
-        console.log(this.body)
+        if (!this.body || this.body.trim() === '') {
+          return
+        }
+
+        let tempMessage = this.buildTemMessage()
+
+        console.log(tempMessage)
       }
     }
   }

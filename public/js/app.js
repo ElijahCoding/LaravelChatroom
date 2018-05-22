@@ -43623,8 +43623,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.send();
       }
     },
+    buildTemMessage: function buildTemMessage() {
+      var tempId = Date.now();
+
+      return {
+        id: tempId,
+        body: this.body,
+        created_at: 'Date',
+        selfOwned: true,
+        user: {
+          name: 'Elijah'
+        }
+      };
+    },
     send: function send() {
-      console.log(this.body);
+      if (!this.body || this.body.trim() === '') {
+        return;
+      }
+
+      var tempMessage = this.buildTemMessage();
+
+      console.log(tempMessage);
     }
   }
 });
