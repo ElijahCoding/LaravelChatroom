@@ -19,6 +19,7 @@
 
 <script>
   import Bus from '../bus'
+  import moment from 'moment'
 
   export default {
     data () {
@@ -41,10 +42,10 @@
         return {
           id: tempId,
           body: this.body,
-          created_at: 'Date',
+          created_at: moment().utc(0).format('YYYY-MM-DD HH:mm:ss'),
           selfOwned: true,
           user: {
-            name: 'Elijah'
+            name: Laravel.user.name
           }
         }
 
@@ -58,6 +59,8 @@
         let tempMessage = this.buildTemMessage()
 
         Bus.$emit('message.added', tempMessage)
+
+        this.body = null
       }
     }
   }
