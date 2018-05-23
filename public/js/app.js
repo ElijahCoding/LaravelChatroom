@@ -65890,7 +65890,7 @@ Echo.join('chat').here(function (users) {
 }).leaving(function (user) {
   __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$emit('users.left', user);
 }).listen('Chat.MessageCreated', function (e) {
-  console.log(e);
+  __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$emit('messages.added', e.message);
 });
 
 /***/ }),

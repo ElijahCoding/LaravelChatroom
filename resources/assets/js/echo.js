@@ -11,5 +11,5 @@ Echo.join('chat')
   Bus.$emit('users.left', user)
 })
 .listen('Chat.MessageCreated', (e) => {
-  console.log(e)
+  Bus.$emit('messages.added', e.message)
 })

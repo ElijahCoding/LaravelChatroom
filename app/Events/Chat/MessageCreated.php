@@ -27,6 +27,17 @@ class MessageCreated implements ShouldBroadcast
         $this->message = $message;
     }
 
+    public function broadcastWith()
+    {
+        $this->message->load(['user']);
+
+        return [
+            'message' => array_merge($this->message->toArray(), [
+                'selfOwned' => false
+            ])
+        ];
+    }
+
     /**
      * Get the channels the event should broadcast on.
      *
