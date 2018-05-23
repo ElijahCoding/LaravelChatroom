@@ -1,6 +1,6 @@
 <template>
     <div class="users">
-        <div class="users__header"> online</div>
+        <div class="users__header">{{ users.length }} {{ pluralize('user', users.length) }} online</div>
         <div class="users__user" v-for="user in users">
             <a href="#">{{ user.name }}</a>
         </div>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  import pluralize from 'pluralize'
   import Bus from '../bus'
 
   export default {
@@ -15,6 +16,10 @@
       return {
         users: []
       }
+    },
+
+    methods: {
+      pluralize: pluralize
     },
 
     mounted () {
