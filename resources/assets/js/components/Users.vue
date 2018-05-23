@@ -1,15 +1,35 @@
 <template>
     <div class="users">
         <div class="users__header"> online</div>
-        <div class="users__user">
-            <a href="#">Elijah</a>
+        <div class="users__user" v-for="user in users">
+            <a href="#">{{ user.name }}</a>
         </div>
     </div>
 </template>
 
 <script>
-  export default {
+  import Bus from '../bus'
 
+  export default {
+    data () {
+      return {
+        users: []
+      }
+    },
+
+    mounted () {
+      Bus.$on('users.here', (users) => {
+        this.users = users
+      })
+        .$on('users.joined', (user) => {
+          this.users.unshift(user)
+        })
+        .$on('users.left', (user) => {
+          this.users = this.users.filter((u) => {
+            return u.id !== user.id
+          })
+        })
+    }
   }
 </script>
 

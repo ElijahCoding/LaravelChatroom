@@ -1,10 +1,12 @@
+import Bus from './bus'
+
 Echo.join('chat')
     .here((users) => {
-    console.log(users)
+      Bus.$emit('users.here', users)
 })
 .joining((user) => {
-  console.log(user)
+  Bus.$emit('users.joined', user)
 })
 .leaving((user) => {
-  console.log(user)
+  Bus.$emit('users.left', user)
 })

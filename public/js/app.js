@@ -65776,6 +65776,7 @@ exports.push([module.i, "\n.users {\n  background-color: #fff;\n  border: 1px so
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bus__ = __webpack_require__(15);
 //
 //
 //
@@ -65786,7 +65787,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      users: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$on('users.here', function (users) {
+      _this.users = users;
+    }).$on('users.joined', function (user) {
+      _this.users.unshift(user);
+    }).$on('users.left', function (user) {
+      _this.users = _this.users.filter(function (u) {
+        return u.id !== user.id;
+      });
+    });
+  }
+});
 
 /***/ }),
 /* 189 */
@@ -65796,22 +65818,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "users" }, [
+  return _c(
+    "div",
+    { staticClass: "users" },
+    [
       _c("div", { staticClass: "users__header" }, [_vm._v(" online")]),
       _vm._v(" "),
-      _c("div", { staticClass: "users__user" }, [
-        _c("a", { attrs: { href: "#" } }, [_vm._v("Elijah")])
-      ])
-    ])
-  }
-]
+      _vm._l(_vm.users, function(user) {
+        return _c("div", { staticClass: "users__user" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(user.name))])
+        ])
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -65838,14 +65860,19 @@ if (false) {
 /* 198 */,
 /* 199 */,
 /* 200 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bus__ = __webpack_require__(15);
+
 
 Echo.join('chat').here(function (users) {
-  console.log(users);
+  __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$emit('users.here', users);
 }).joining(function (user) {
-  console.log(user);
+  __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$emit('users.joined', user);
 }).leaving(function (user) {
-  console.log(user);
+  __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$emit('users.left', user);
 });
 
 /***/ })
