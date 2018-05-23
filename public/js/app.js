@@ -60020,6 +60020,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$emit('message.added', tempMessage);
 
+      axios.post('/chat/messages', {
+        body: this.body.trim()
+      }).catch(function () {
+        console.log('failed');
+      });
+
       this.body = null;
     }
   }

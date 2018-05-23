@@ -60,6 +60,12 @@
 
         Bus.$emit('message.added', tempMessage)
 
+        axios.post('/chat/messages', {
+          body: this.body.trim()
+        }).catch(() => {
+          console.log('failed')
+        })
+
         this.body = null
       }
     }
