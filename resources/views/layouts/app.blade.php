@@ -20,6 +20,9 @@
           'authenticated' => auth()->check(),
           'id' => auth()->check() ? auth()->user()->id : null,
           'name' => auth()->check() ? auth()->user()->name : null
+        ],
+        'key' => [
+          'pusher' => config('broadcasting.connections.pusher.key')
         ]
       ]) !!}
     </script>
