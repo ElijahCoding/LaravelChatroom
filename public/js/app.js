@@ -28829,6 +28829,8 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   encrypted: true
 });
 
+__webpack_require__(200);
+
 /***/ }),
 /* 142 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -65824,6 +65826,27 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */
+/***/ (function(module, exports) {
+
+Echo.join('chat').here(function (users) {
+  console.log(users);
+}).joining(function (user) {
+  console.log(user);
+}).leaving(function (user) {
+  console.log(user);
+});
 
 /***/ })
 /******/ ]);
