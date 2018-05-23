@@ -8,9 +8,18 @@
   import Bus from '../bus'
 
   export default {
+
     data () {
       return {
         messages: []
+      }
+    },
+
+    methods: {
+      removeMessage (id) {
+        this.messages = this.messages.filter((message) => {
+          return message.id !== id
+        })
       }
     },
 
@@ -19,12 +28,14 @@
         this.messages = response.data
       })
 
-      Bus.$on('message.added', (message) => {
+      Bus.$on('messages.added', (message) => {
         this.messages.unshift(message)
 
         if (message.selfOwned) {
           this.$refs.messages.scrollTop = 0
         }
+      }).$on('messages.removed', (message) => {
+        this.removeMessage(message.id)
       })
     }
   }

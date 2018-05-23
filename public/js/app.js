@@ -59986,7 +59986,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      body: null
+      body: null,
+      bodyBackedUp: null
     };
   },
 
@@ -59994,6 +59995,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     handleMessageInput: function handleMessageInput(e) {
       if (e.keyCode === 13 && !e.shiftKey) {
+        this.bodyBackedUp = this.body;
+
         e.preventDefault();
         this.send();
       }
@@ -60012,18 +60015,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
     },
     send: function send() {
+      var _this = this;
+
       if (!this.body || this.body.trim() === '') {
         return;
       }
 
       var tempMessage = this.buildTemMessage();
 
-      __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$emit('message.added', tempMessage);
+      __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$emit('messages.added', tempMessage);
 
       axios.post('/chat/messages', {
         body: this.body.trim()
       }).catch(function () {
-        console.log('failed');
+        _this.body = _this.bodyBackedUp;
+        __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$emit('messages.removed', tempMessage);
       });
 
       this.body = null;
@@ -60470,6 +60476,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       messages: []
     };
   },
+
+
+  methods: {
+    removeMessage: function removeMessage(id) {
+      this.messages = this.messages.filter(function (message) {
+        return message.id !== id;
+      });
+    }
+  },
+
   mounted: function mounted() {
     var _this = this;
 
@@ -60477,12 +60493,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       _this.messages = response.data;
     });
 
-    __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$on('message.added', function (message) {
+    __WEBPACK_IMPORTED_MODULE_0__bus__["a" /* default */].$on('messages.added', function (message) {
       _this.messages.unshift(message);
 
       if (message.selfOwned) {
         _this.$refs.messages.scrollTop = 0;
       }
+    }).$on('messages.removed', function (message) {
+      _this.removeMessage(message.id);
     });
   }
 });
