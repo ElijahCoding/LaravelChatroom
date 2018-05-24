@@ -22,7 +22,13 @@ class ChatTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user) {
           $browser->loginAs($user)
               ->visit(new ChatPage)
-              ->typeMessage('Hi there');
+              ->typeMessage('Hi there')
+              ->sendMessage()
+              ->assertInputValue('@body', '')
+              ->with('@chatMessages', function ($messages) use ($user) {
+                $messages->assertSee('Hi there')
+                         ->assertSee($user->name);
+              });
         });
     }
 }
