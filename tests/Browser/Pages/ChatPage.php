@@ -27,6 +27,17 @@ class ChatPage extends Page
         $browser->assertPathIs($this->url());
     }
 
+    public function typeMessage(Browser $browser, $body = null)
+    {
+        $browser->type('@body', $body)
+            ->pause(500);
+    }
+
+    public function sendMessage(Browser $browser)
+    {
+        $browser->keys('@body', ['{enter}']);
+    }
+
     /**
      * Get the element shortcuts for the page.
      *
