@@ -79,4 +79,51 @@ class ChatTest extends DuskTestCase
                   ->assertDontSeeIn('@chatMessages', $user->name);
         });
       }
+
+      /**
+       * @test A user can't send an empty message
+       *
+       * @return void
+       */
+       public function messages_are_ordered_by_latest_first()
+       {
+          $user = factory(User::class)->create();
+
+          $this->browse(function (Browser $browser) use ($user) {
+              $browser->loginAs($user)
+                  ->visit(new ChatPage);
+
+              foreach (['One', 'Two', 'Three'] as $message) {
+                  $browser->typeMessage($message)
+                      ->sendMessage()
+                      ->waitFor('@firstChatMessage')
+                      ->assertSeeIn('@firstChatMessage', $message);
+              }
+
+              $browser->logout();
+          });
+       }
+
+       /**
+     * @test A user's message is highlighted as their own
+     *
+     * @return void
+     */
+    public function a_users_message_is_highlighted_as_their_own()
+    {
+        $user = factory(User::class)->create();
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->loginAs($user)
+                ->visit(new ChatPage)
+                ->typeMessage('My message')
+                ->sendMessage()
+                ->waitFor('@ownMessage')
+                ->with('@ownMessage', function ($message) use ($user) {
+                    $message->assertSee('My message')
+                        ->assertSee($user->name);
+                })
+                ->logout();
+        });
+    }
 }
