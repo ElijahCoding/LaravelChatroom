@@ -31,4 +31,26 @@ class ChatTest extends DuskTestCase
               });
         });
     }
+
+    /**
+     * @test A user can send a multiline message
+     *
+     * @return void
+     */
+     public function a_user_can_send_a_multiline_message()
+     {
+       $user = factory(User::class)->create();
+
+       $this->browse(function (Browser $browser) use ($user) {
+         $browser->loginAs($user)
+                 ->visit(new ChatPage)
+                 ->typeMessage('Test message')
+                 ->keys('@body', '{shift}', '{enter}')
+                 ->append('@body', 'New line')
+                 ->sendMessage()
+                 ->assertSeeIn('@chatMessages', "Test message\nNew line")
+                 ->logout();
+
+       });
+     }
 }
